@@ -1,1 +1,17 @@
+trigger:
+  - main  # De pipeline wordt automatisch gestart bij wijzigingen in de "main" branch
 
+pool:
+  vmImage: 'ubuntu-latest'  # Gebruik een Linux-basisimage voor de pipeline
+
+steps:
+  - checkout: self  # Check de GitHub-repository uit
+
+  - script: echo "Building the application..."
+    displayName: 'Build Step'  # Stap voor het bouwen van de applicatie
+
+  - script: echo "Running tests..."
+    displayName: 'Test Step'  # Stap voor het uitvoeren van tests
+
+  - script: echo "Deploying application..."
+    displayName: 'Deploy Step'  # Stap voor de implementatie van de applicatie
