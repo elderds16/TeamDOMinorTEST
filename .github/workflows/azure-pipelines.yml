@@ -1,17 +1,26 @@
-trigger:
-  - main  # De pipeline wordt automatisch gestart bij wijzigingen in de "main" branch
+name: Deploy to Azure
 
-pool:
-  vmImage: 'ubuntu-latest'  # Gebruik een Linux-basisimage voor de pipeline
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main  # Trigger de workflow bij push naar de 'main' branch en bij pull requests
 
-steps:
-  - checkout: self  # Check de GitHub-repository uit
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-  - script: echo "Building the application..."
-    displayName: 'Build Step'  # Stap voor het bouwen van de applicatie
+      - name: Login to Azure
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-  - script: echo "Running tests..."
-    displayName: 'Test Step'  # Stap voor het uitvoeren van tests
-
-  - script: echo "Deploying application..."
-    displayName: 'Deploy Step'  # Stap voor de implementatie van de applicatie
+      - name: Deploy ARM template
+        run: |
+          az group create --name myResourceGroup --location westeurope
+          az deployment group create --resource-group myResourceGroup --template-file path/to/your-template.json
