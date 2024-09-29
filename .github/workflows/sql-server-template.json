@@ -25,6 +25,13 @@
       "metadata": {
         "description": "The name of the SQL Database."
       }
+    },
+    "location": {
+      "type": "string",
+      "defaultValue": "westeurope",
+      "metadata": {
+        "description": "The location for all resources."
+      }
     }
   },
   "resources": [
@@ -32,7 +39,7 @@
       "type": "Microsoft.Sql/servers",
       "apiVersion": "2021-02-01-preview",
       "name": "[parameters('sqlServerName')]",
-      "location": "[resourceGroup().location]",
+      "location": "[parameters('location')]",
       "properties": {
         "administratorLogin": "[parameters('administratorLogin')]",
         "administratorLoginPassword": "[parameters('administratorLoginPassword')]",
@@ -43,10 +50,7 @@
           "type": "databases",
           "apiVersion": "2021-02-01-preview",
           "name": "[parameters('databaseName')]",
-          "location": "[resourceGroup().location]",
-          "dependsOn": [
-            "[concat('Microsoft.Sql/servers/', parameters('sqlServerName'))]"
-          ],
+          "location": "[parameters('location')]",
           "properties": {
             "collation": "SQL_Latin1_General_CP1_CI_AS",
             "maxSizeBytes": "2147483648",
