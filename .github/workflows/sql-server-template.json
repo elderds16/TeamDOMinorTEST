@@ -51,6 +51,9 @@
           "apiVersion": "2021-02-01-preview",
           "name": "[parameters('databaseName')]",
           "location": "[parameters('location')]",
+          "dependsOn": [
+            "[resourceId('Microsoft.Sql/servers', parameters('sqlServerName'))]"
+          ],
           "properties": {
             "collation": "SQL_Latin1_General_CP1_CI_AS",
             "maxSizeBytes": "2147483648",
