@@ -20,7 +20,13 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Deploy ARM template
+      - name: Deploy ARM template for SQL Server and Database
         run: |
           az group create --name myResourceGroup --location westeurope
-          az deployment group create --resource-group myResourceGroup --template-file path/to/your-template.json
+          az deployment group create \
+            --resource-group myResourceGroup \
+            --template-file .github/workflows/sql-server-template.json \
+            --parameters sqlServerName=myUniqueSqlServer \
+                         administratorLogin=myAdminUser \
+                         administratorLoginPassword=${{ secrets.ADMIN_PASSWORD }} \
+                         databaseName=myDatabase
