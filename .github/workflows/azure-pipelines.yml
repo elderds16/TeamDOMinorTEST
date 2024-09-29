@@ -22,9 +22,12 @@ jobs:
 
       - name: Deploy ARM template
         run: |
-          az group create --name myResourceGroup 
+          # Maak een nieuwe resource group in Northeurope
+          az group create --name myNewResourceGroup --location northeurope
+          
+          # Voer de ARM-template uit voor de nieuwe resource group
           az deployment group create \
-            --resource-group myResourceGroup \
+            --resource-group myNewResourceGroup \
             --template-file .github/workflows/sql-server-template.json \
             --parameters sqlServerName=myUniqueSqlServer \
                          administratorLogin=myAdminUser \
