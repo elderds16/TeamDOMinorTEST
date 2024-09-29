@@ -30,4 +30,4 @@ jobs:
                          administratorLogin=myAdminUser \
                          administratorLoginPassword='${{ secrets.ADMIN_PASSWORD }}' \
                          databaseName=myDatabase \
-                         location=westeurope
+                         location=northeurope
