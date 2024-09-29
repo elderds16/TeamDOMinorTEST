@@ -28,6 +28,6 @@ jobs:
             --template-file .github/workflows/sql-server-template.json \
             --parameters sqlServerName=myUniqueSqlServer \
                          administratorLogin=myAdminUser \
-                         administratorLoginPassword='${{ secrets.ADMIN_PASSWORD }}' \
+                         administratorLoginPassword=${{ secrets.ADMIN_PASSWORD }} \
                          databaseName=myDatabase \
                          location=northeurope
