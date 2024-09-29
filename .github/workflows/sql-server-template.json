@@ -28,7 +28,7 @@
     },
     "location": {
       "type": "string",
-      "defaultValue": "westeurope",
+      "defaultValue": "northeurope",  // Gebruik 'northeurope' als locatie
       "metadata": {
         "description": "The location for all resources."
       }
